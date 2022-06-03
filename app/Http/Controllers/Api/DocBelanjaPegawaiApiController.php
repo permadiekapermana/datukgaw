@@ -67,10 +67,11 @@ class DocBelanjaPegawaiApiController extends Controller
     public function store(Request $request)
     {
         //Validate data
-        $data = $request->only('date', 'jenis_dokumen', 'nama_dokumen', 'nomor_dokumen', 'deskripsi_dokumen', 'file', 'created_by', 'updated_by');
+        $data = $request->only('date', 'jenis_dokumen', 'tipe_dokumen', 'nama_dokumen', 'nomor_dokumen', 'deskripsi_dokumen', 'file', 'created_by', 'updated_by');
         $validator = Validator::make($data, [
             'date' => 'required|date',
             'jenis_dokumen' => 'required|string',
+            'tipe_dokumen' => 'required|string',
             'nama_dokumen' => 'required|string',
             'nomor_dokumen' => 'required|string',
             'deskripsi_dokumen' => 'required|string',
@@ -81,6 +82,8 @@ class DocBelanjaPegawaiApiController extends Controller
             'date.required' => 'Date is Required',
             'jenis_dokumen.required' => 'Jenis Dokumen is Required',
             'jenis_dokumen.String' => 'Jenis Dokumen Must Be String',
+            'tipe_dokumen.required' => 'Tipe Dokumen is Required',
+            'tipe_dokumen.String' => 'Tipe Dokumen Must Be String',
             'nama_dokumen.required' => 'Nama Dokumen is Required',
             'nama_dokumen.String' => 'Nama Dokumen Must Be String',
             'nomor_dokumen.required' => 'Nomor Dokumen is Required',
@@ -112,6 +115,7 @@ class DocBelanjaPegawaiApiController extends Controller
         $doc = DocBelanjaPegawai::create([
             'date' => $request->date,
             'jenis_dokumen' => $request->jenis_dokumen,
+            'tipe_dokumen' => $request->tipe_dokumen,
             'nama_dokumen' => $request->nama_dokumen,
             'nomor_dokumen' => $request->nomor_dokumen,
             'deskripsi_dokumen' => $request->deskripsi_dokumen,
@@ -168,10 +172,11 @@ class DocBelanjaPegawaiApiController extends Controller
             return Response::json(['message' => 'Id not found'], 200);
         }
         //Validate data
-        $data = $request->only('date', 'jenis_dokumen', 'nama_dokumen', 'nomor_dokumen', 'deskripsi_dokumen', 'file', 'created_by', 'updated_by');
+        $data = $request->only('date', 'jenis_dokumen', 'tipe_dokumen', 'nama_dokumen', 'nomor_dokumen', 'deskripsi_dokumen', 'file', 'created_by', 'updated_by');
         $validator = Validator::make($data, [
             'date' => 'required|date',
             'jenis_dokumen' => 'required|string',
+            'tipe_dokumen' => 'required|string',
             'nama_dokumen' => 'required|string',
             'nomor_dokumen' => 'required|string',
             'deskripsi_dokumen' => 'required|string',
@@ -180,6 +185,8 @@ class DocBelanjaPegawaiApiController extends Controller
             'date.required' => 'Date is Required',
             'jenis_dokumen.required' => 'Jenis Dokumen is Required',
             'jenis_dokumen.String' => 'Jenis Dokumen Must Be String',
+            'tipe_dokumen.required' => 'Tipe Dokumen is Required',
+            'tipe_dokumen.String' => 'Tipe Dokumen Must Be String',
             'nama_dokumen.required' => 'Nama Dokumen is Required',
             'nama_dokumen.String' => 'Nama Dokumen Must Be String',
             'nomor_dokumen.required' => 'Nomor Dokumen is Required',
@@ -211,6 +218,7 @@ class DocBelanjaPegawaiApiController extends Controller
         $found->update([
             'date' => $request->date,
             'jenis_dokumen' => $request->jenis_dokumen,
+            'tipe_dokumen' => $request->tipe_dokumen,
             'nama_dokumen' => $request->nama_dokumen,
             'nomor_dokumen' => $request->nomor_dokumen,
             'deskripsi_dokumen' => $request->deskripsi_dokumen,

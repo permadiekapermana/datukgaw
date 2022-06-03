@@ -17,6 +17,7 @@ class CreateDocBelanjaPegawaiTable extends Migration
             $table->uuid('id')->primary();
             $table->date('date');
             $table->string('jenis_dokumen');
+            $table->string('tipe_dokumen');
             $table->string('nama_dokumen');
             $table->string('nomor_dokumen');
             $table->string('deskripsi_dokumen', 250);

@@ -1,8 +1,6 @@
 <nav class="sidebar">
 <div class="sidebar-header">
     <a href="#" class="sidebar-brand">
-    {{-- JDIH<span>N</span> --}}
-    {{-- LOG<span>O</span> --}}
     <h6>DATUKGAW</h6>
     </a>
     <div class="sidebar-toggler not-active">
@@ -22,26 +20,11 @@
         <span class="link-title">Dashboard</span>
         </a>
     </li>
-    <!-- Menu Keuangan -->
     <li class="nav-item">
-        <a class="nav-link"  data-toggle="collapse" href="#keuangan" role="button" aria-expanded="false" aria-controls="keuangan">
-          <i class="link-icon" data-feather="dollar-sign"></i>
-          <span class="link-title">Keuangan</span>
-          <i class="link-arrow" data-feather="chevron-down"></i>
+        <a href="/cms/keuangan" class="nav-link">
+        <i class="link-icon" data-feather="dollar-sign"></i>
+        <span class="link-title">Keuangan</span>
         </a>
-        <div class="collapse" id="keuangan">
-          <ul class="nav sub-menu">
-            <li class="nav-item">
-              <a href="#" class="nav-link">Belanja Pegawai</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Belanja Barang</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Belanja Modal</a>
-            </li>
-          </ul>
-        </div>
     </li>
     @endif
 

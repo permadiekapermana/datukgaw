@@ -35,5 +35,6 @@ Route::group(['middleware' => ['login.middleware']], function() {
     Route::get('/logout', 'AuthController@logout');
     Route::prefix('cms')->group(function () {
         Route::get('/dashboard', 'DashboardController@Dashboard');
+        Route::get('/keuangan', 'KeuanganController@Keuangan');
     });
 });
