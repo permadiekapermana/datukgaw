@@ -13,12 +13,9 @@ class CreateDocBelanjaPegawaiTable extends Migration
      */
     public function up()
     {
-        Schema::create('doc_belanja_pegawai', function (Blueprint $table) {
+        Schema::create('doc_belanja_pegawais', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('date');
-            $table->string('bulan');
-            $table->string('nama_bulan');
-            $table->string('tahun');
             $table->string('jenis_dokumen');
             $table->string('nama_dokumen');
             $table->string('nomor_dokumen');

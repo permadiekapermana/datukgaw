@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\DocBelanjaPegawaiApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,3 +28,10 @@ Route::get('user/get', [UserApiController::class, 'get'])->middleware('jwt.verif
 Route::get('user/get/{id}', [UserApiController::class, 'show'])->middleware('jwt.verify');
 Route::put('user/put/{user}', [UserApiController::class, 'update'])->middleware('jwt.verify');
 Route::delete('user/delete/{user}',  [UserApiController::class, 'destroy'])->middleware('jwt.verify');
+
+//========== DOCUMENT BELANJA PEGAWAI
+Route::get('doc_belanja_pegawai/get', [DocBelanjaPegawaiApiController::class, 'get'])->middleware('jwt.verify');
+Route::get('doc_belanja_pegawai/get/{id}', [DocBelanjaPegawaiApiController::class, 'show'])->middleware('jwt.verify');
+Route::post('doc_belanja_pegawai/create', [DocBelanjaPegawaiApiController::class, 'store'])->middleware('jwt.verify');
+Route::put('doc_belanja_pegawai/put/{id}', [DocBelanjaPegawaiApiController::class, 'put'])->middleware('jwt.verify');
+Route::delete('doc_belanja_pegawai/delete/{id}',  [DocBelanjaPegawaiApiController::class, 'destroy'])->middleware('jwt.verify');
