@@ -28,6 +28,9 @@ function buildTemplate(data, index, page, perPage){
     rows += data[index].jenis_dokumen
     rows += "</td>"
     rows += "<td style='width:auto; white-space: normal; padding: 10px;'>"
+    rows += data[index].tipe_dokumen
+    rows += "</td>"
+    rows += "<td style='width:auto; white-space: normal; padding: 10px;'>"
     rows += data[index].nama_dokumen
     rows += "</td>"
     rows += "<td style='width:auto; white-space: normal; text-align: center; padding: 10px;'>"
@@ -42,15 +45,12 @@ function buildTemplate(data, index, page, perPage){
     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Action
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`       
-        if (data[index].is_hidden == 1){
-            rows += "<button type='button' class='btn btn-light btn-xs dropdown-item dropdown-item' onClick='show(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-eye feather-16'></i> Show</button>"
-        } else if (data[index].is_hidden == 0) {
-            rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='hide(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-eye feather-16'></i> Hide</button>"
-        }
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='view(\"" + data[index].id + "\",\"" + data[index].judul + "\",\"" + data[index].file + "\")' style='margin-right: 5px;'><i class='fa fa-file-text feather-16'></i> View</button>"
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='edit(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-pencil feather-16'></i> Edit</button>"
+        if(localStorage.getItem('role')=='admin'){
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='destroy(\"" + data[index].id + "\")'><i class='fa fa-trash feather-16'></i> Delete</button>"    
+        }
     rows += `</div>
     </div>`
     rows += "</td>"
@@ -61,7 +61,8 @@ function buildTemplate(data, index, page, perPage){
 
 // clear value filter search
 function clearFilter(){
-    $("#filterNamaDokumen").val("")
+    $("#filterTahun").val("")
+    $("#filterTipeDokumen").val("")
     $("#filterJenisDokumen").val("")
     search();
 }
@@ -83,9 +84,10 @@ function search(page) {
     if (!page) page = globalPage;
     var url = "/api/doc_belanja_pegawai/get?page=" + page
     
-    var filterNamaDokumen = $("#filterNamaDokumen").val()
+    var filterTahun = $("#filterTahun").val()
+    var filterTipeDokumen = $("#filterTipeDokumen").val()
     var filterJenisDokumen = $("#filterJenisDokumen").val()
-    var params = "&nama_dokumen=" + filterNamaDokumen + "&jenis_dokumen=" + filterJenisDokumen
+    var params = "&tahun=" + filterTahun + "&tipe_dokumen=" + filterTipeDokumen + "&jenis_dokumen=" + filterJenisDokumen
 
     $(".template-data").remove()
     commonJS.loading(true)
@@ -127,11 +129,12 @@ function search(page) {
 // clear value when modal close
 $(".modal").on("hidden.bs.modal", function(){
     $("#id").val('');
-    $("#judul").val('');
+    $("#date").val('');
+    $("#jenis_dokumen").val('');
     $("#tipe_dokumen").val('');
-    $("#peraturan_daerah").val('');
-    $("#no_perda").val('');
-    $("#tahun").val('1990');
+    $("#nama_dokumen").val('');
+    $("#nomor_dokumen").val('');
+    $("#deskripsi_dokumen").val('');
     $("#file").val('');
 });
 
@@ -151,9 +154,15 @@ function add(){
 // function save
 function save(){
     commonJS.clearMessage()
-    if ($("#judul").val() == '') {
-        $("#judul").focus();
-        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Judul"], commonMsg.MSG_REQUIRED))
+    if ($("#date").val() == '') {
+        $("#date").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Tanggal"], commonMsg.MSG_REQUIRED))
+        return
+    }
+
+    if ($("#jenis_dokumen").val() == '') {
+        $("#jenis_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Jenis Dokumen"], commonMsg.MSG_REQUIRED))
         return
     }
 
@@ -163,82 +172,71 @@ function save(){
         return
     }
     
-    if ($("#peraturan_daerah").val() == '') {
-        $("#peraturan_daerah").focus();
-        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Peraturan Daerah"], commonMsg.MSG_REQUIRED))
+    if ($("#nama_dokumen").val() == '') {
+        $("#nama_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Nama Dokumen"], commonMsg.MSG_REQUIRED))
         return
     }
     
-    if ($("#no_perda").val() == '') {
-        $("#no_perda").focus();
-        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Nomor Perda"], commonMsg.MSG_REQUIRED))
+    if ($("#nomor_dokumen").val() == '') {
+        $("#nomor_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Nomor Dokumen"], commonMsg.MSG_REQUIRED))
         return
     }
 
-    if ($("#tahun").val() == '') {
-        $("#tahun").focus();
-        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Tahun"], commonMsg.MSG_REQUIRED))
+    if ($("#deskripsi_dokumen").val() == '') {
+        $("#deskripsi_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Deskripsi Dokumen"], commonMsg.MSG_REQUIRED))
         return
     }
 
-    if ($("#id").val() == ""){
-        // console.log($("#file")[0].files[0])
-        // validate required file
-        if ($("#file").val() == '') {
-            $("#file").focus();
-            commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_REQUIRED))
-            return
-        }
-        // Validate type file
-        if ($("#file")[0].files[0].type!='application/pdf') {
-            $("#file").focus();
-            commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_ONLY_PDF))
-            return
-        }
-        // validate file size
-        if ($("#file")[0].files[0].size>10000000) {
-            $("#file").focus();
-            commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_MORE_THAN_10MB))
-            return
-        }
+    
+    // console.log($("#file")[0].files[0])
+    // validate required file
+    if ($("#file").val() == '') {
+        $("#file").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_REQUIRED))
+        return
     }
+    // Validate type file
+    if ($("#file")[0].files[0].type!='application/pdf') {
+        $("#file").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_ONLY_PDF))
+        return
+    }
+    // validate file size
+    if ($("#file")[0].files[0].size>10000000) {
+        $("#file").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_MORE_THAN_10MB))
+        return
+    }   
 
     commonJS.loading(true)
 
     // get value
-    let judul = $("#judul").val(); 
+    let date = $("#date").val(); 
+    let jenis_dokumen = $("#jenis_dokumen").val();
     let tipe_dokumen = $("#tipe_dokumen").val();
-    let peraturan_daerah = $("#peraturan_daerah").val();
-    let no_perda = $("#no_perda").val();
-    let tahun = $("#tahun").val();
+    let nama_dokumen = $("#nama_dokumen").val();
+    let nomor_dokumen = $("#nomor_dokumen").val();
+    let deskripsi_dokumen = $("#deskripsi_dokumen").val();
+    let file = $("#file")[0].files[0];
     // console.log($("#file")[0].files[0].type)
     // form data
     var data = new FormData();
-    data.append("judul", judul);
+    data.append("date", date);
+    data.append("jenis_dokumen", jenis_dokumen);
     data.append("tipe_dokumen", tipe_dokumen);
-    data.append("peraturan_daerah", peraturan_daerah);
-    data.append("no_perda", no_perda);
-    data.append("tahun", tahun);
-    // json data
-    let dataJSON = {
-        "judul": judul,
-        "tipe_dokumen": tipe_dokumen,
-        "peraturan_daerah": peraturan_daerah,
-        "no_perda": no_perda,
-        "tahun": tahun,
-    }
+    data.append("nama_dokumen", nama_dokumen);
+    data.append("nomor_dokumen", nomor_dokumen);
+    data.append("deskripsi_dokumen", deskripsi_dokumen);
+    data.append("file", file);
 
-    if ($("#id").val() == ""){        
-        // append file to form data
-        let file = $("#file")[0].files[0];
-        data.append("file", file);
-        if($("#customSwitch1").is(":checked")==true){
-            data.append("is_image", 1);
-        } else if ($("#customSwitch1").is(":checked")==false){
-            data.append("is_image", 0);
-        }
+    // console.log($("#id").val())
+
+    if ($("#id").val() == ""){
         // POST API
-        commonAPI.postFormDataAPI("/api/perda/create", data, function(response){
+        commonAPI.postFormDataAPI("/api/doc_belanja_pegawai/create", data, function(response){
             // console.log(response)
 
             // validate response hard code (Not Best Practice)
@@ -308,35 +306,7 @@ function edit(id){
 }
 
 function destroy(id) {
-    commonJS.swalConfirmAjax("Are you sure you want to delete this data?", "Yes", "No", commonAPI.deleteAPI, `/api/perda/delete/${id}`, function(response){
-        if (response.status == 200) {
-            search(globalPage);
-        } else if (response.status==401){
-            swalError(response.message)
-        }
-        commonJS.loading(false)
-    }, function(response){
-        commonJS.loading(false)
-        commonJS.swalError(response.responseJSON.message);
-    })
-}
-
-function hide(id) {
-    commonJS.swalConfirmAjax("Are you sure you want to hide this data?", "Yes", "No", commonAPI.hideShowAPI, `/api/perda/hide/${id}`, function(response){
-        if (response.status == 200) {
-            search(globalPage);
-        } else if (response.status==401){
-            swalError(response.message)
-        }
-        commonJS.loading(false)
-    }, function(response){
-        commonJS.loading(false)
-        commonJS.swalError(response.responseJSON.message);
-    })
-}
-
-function show(id) {
-    commonJS.swalConfirmAjax("Are you sure you want to show this data?", "Yes", "No", commonAPI.hideShowAPI, `/api/perda/show/${id}`, function(response){
+    commonJS.swalConfirmAjax("Are you sure you want to delete this data?", "Yes", "No", commonAPI.deleteAPI, `/api/doc_belanja_pegawai/delete/${id}`, function(response){
         if (response.status == 200) {
             search(globalPage);
         } else if (response.status==401){

@@ -40,6 +40,7 @@ function login(){
             success:function(response){
 
                 localStorage.setItem('id_user', response.user.id_user);
+                localStorage.setItem('role', response.user.role);
                 localStorage.setItem('token', response.token);
                 
                 // var req = new XMLHttpRequest();

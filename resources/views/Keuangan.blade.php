@@ -24,7 +24,7 @@
                         <div class="col-sm-6">
                             <div class="mb-3">
                                 <label class="form-label">Tahun</label>
-                                <select class="form-select" id="filterJenisDokumen" aria-label="Default select example" disabled>
+                                <select class="form-select" id="filterTahun" aria-label="Default select example" disabled>
                                     <option value="" selected>Semua Tahun</option>
                                     <option value="Daftar Gaji">Daftar Gaji</option>
                                     <option value="Uang Makan">Uang Makan</option>
@@ -39,8 +39,13 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Dokumen</label>
-                                    <input type="text" class="form-control" placeholder="Nama Dokumen" id="filterNamaDokumen" disabled>                                    
+                                    <label class="form-label">Tipe Dokumen</label>
+                                    <select class="form-select" id="filterTipeDokumen" aria-label="Default select example" disabled>
+                                        <option value="" selected>Semua Tipe Dokumen</option>
+                                        <option value="Daftar Gaji">Daftar Gaji</option>
+                                        <option value="Uang Makan">Uang Makan</option>
+                                        <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                                    </select>
                                 </div>
                             </div><!-- Col -->
                             <div class="col-sm-6">
@@ -125,6 +130,7 @@
                                     <th width="5%">No</th>
                                     <th width="15%">Tanggal</th>
                                     <th width="25%">Jenis Dokumen</th>
+                                    <th width="10%">Tipe Dokumen</th>
                                     <th width="20%">Nama Dokumen</th>
                                     <th width="7%">Nomor Dokumen</th>
                                     <th width="8%">Last Update By</th>
@@ -183,6 +189,17 @@
                     <div class="col-sm-9">
                         <select class="form-select" name="jenis_dokumen" id="jenis_dokumen" aria-label="Default select example" disabled>
                             <option value="" selected>-- Pilih Jenis Dokumen --</option>
+                            <option value="Daftar Gaji">Daftar Gaji</option>
+                            <option value="Uang Makan">Uang Makan</option>
+                            <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="tipe_dokumen" class="col-sm-3 col-form-label">Tipe Dokumen</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" name="tipe_dokumen" id="tipe_dokumen" aria-label="Default select example" disabled>
+                            <option value="" selected>-- Pilih Tipe Dokumen --</option>
                             <option value="Daftar Gaji">Daftar Gaji</option>
                             <option value="Uang Makan">Uang Makan</option>
                             <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
