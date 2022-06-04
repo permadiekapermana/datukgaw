@@ -15,6 +15,27 @@ function setupEventHandler(){
     });
 }
 
+// select year
+function selectYear(){
+    $('#filterTahun').append($('<option />').val("").html(`Semua Tahun`));
+
+
+    var url = "/api/combo/tahun_doc_keuangan"
+    commonAPI.getAPI(url, (response) => {
+        // console.log(response)
+        if(response.status==200){
+            // refine structure
+            var data = response.data
+
+            for (var index in data){
+                $('#filterTahun').append($('<option />').val(`${data[index].tahun}`).html(`${data[index].tahun}`));
+            }
+
+        }
+    })
+
+}
+
 function buildTemplate(data, index, page, perPage){
     var rows = ""
     rows += "<tr class='template-data'>"
@@ -357,5 +378,6 @@ function view(id, nama_dokumen, file, date, jenis_dokumen, tipe_dokumen, nomor_d
 
 $(function(){
     // on document ready
+    selectYear()
     search()
 })

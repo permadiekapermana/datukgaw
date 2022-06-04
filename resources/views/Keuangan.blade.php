@@ -25,10 +25,6 @@
                             <div class="mb-3">
                                 <label class="form-label">Tahun</label>
                                 <select class="form-select" id="filterTahun" aria-label="Default select example" disabled>
-                                    <option value="" selected>Semua Tahun</option>
-                                    <option value="Daftar Gaji">Daftar Gaji</option>
-                                    <option value="Uang Makan">Uang Makan</option>
-                                    <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
                                 </select>
                             </div>
                         </div><!-- Col -->

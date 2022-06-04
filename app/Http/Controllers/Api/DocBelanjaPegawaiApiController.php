@@ -29,8 +29,35 @@ class DocBelanjaPegawaiApiController extends Controller
      */
     public function get(Request $request)
     {
-        $data = DocBelanjaPegawai::orderBy('created_dt')
-                ->paginate(10);
+        $select = new DocBelanjaPegawai();
+        // by tipe dokumen
+        if( $request->tipe_dokumen){
+            $data = $select
+                    ->where('tipe_dokumen', '=', $request->tipe_dokumen)
+                    ->orderBy('created_dt', 'desc')
+                    ->paginate(10);
+        }
+        // by jenis dokumen
+        if( $request->jenis_dokumen){
+            $data = $select
+                    ->where('jenis_dokumen', '=', $request->jenis_dokumen)
+                    ->orderBy('created_dt', 'desc')
+                    ->paginate(10);
+        }
+        // by jenis dokumen and tipe dokumen
+        if( $request->jenis_dokumen && $request->tipe_dokumen){
+            $data = $select
+                    ->where('jenis_dokumen', '=', $request->jenis_dokumen)
+                    ->where('tipe_dokumen', '=', $request->tipe_dokumen)
+                    ->orderBy('created_dt', 'desc')
+                    ->paginate(10);
+        }
+        // no filter
+        if( !$request->tipe_dokumen && !$request->jenis_dokumen ){
+            $data = $select
+                    ->orderBy('created_dt')
+                    ->paginate(10);
+        } 
         
         
         if ($data->isEmpty()){
