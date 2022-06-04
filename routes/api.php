@@ -37,3 +37,4 @@ Route::put('doc_belanja_pegawai/put/{id}', [DocBelanjaPegawaiApiController::clas
 Route::delete('doc_belanja_pegawai/delete/{id}',  [DocBelanjaPegawaiApiController::class, 'destroy'])->middleware('jwt.verify');
 Route::get('doc_belanja_pegawai/download/{id}', [DocBelanjaPegawaiApiController::class, 'download']);
 Route::get('combo/tahun_doc_keuangan', [DocBelanjaPegawaiApiController::class, 'comboTahun']);
+Route::get('doc_belanja_pegawai/getchart', [DocBelanjaPegawaiApiController::class, 'getChart']);

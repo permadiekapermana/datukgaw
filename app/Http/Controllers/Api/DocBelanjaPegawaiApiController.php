@@ -75,6 +75,19 @@ class DocBelanjaPegawaiApiController extends Controller
         }
     }
 
+    public function getChart(Request $request)
+    {
+        $year = $request->year;
+        $data = \DB::select('SELECT master_month.month_name, (SELECT CASE WHEN master_month.id = MONTH(doc_belanja_pegawais.date) THEN COUNT(doc_belanja_pegawais.id) ELSE 0 END as jumlah FROM doc_belanja_pegawais WHERE tipe_dokumen="Belanja Pegawai" AND YEAR(doc_belanja_pegawais.date)=?) as total_belanja_pegawai, (SELECT CASE WHEN master_month.id = MONTH(doc_belanja_pegawais.date) THEN COUNT(doc_belanja_pegawais.id) ELSE 0 END as jumlah FROM doc_belanja_pegawais WHERE tipe_dokumen="Belanja Barang" AND YEAR(doc_belanja_pegawais.date)=?) as total_belanja_barang, (SELECT CASE WHEN master_month.id = MONTH(doc_belanja_pegawais.date) THEN COUNT(doc_belanja_pegawais.id) ELSE 0 END as jumlah FROM doc_belanja_pegawais WHERE tipe_dokumen="Belanja Modal" AND YEAR(doc_belanja_pegawais.date)=?) as total_belanja_modal FROM doc_belanja_pegawais INNER join master_month GROUP BY master_month.month_name ORDER BY master_month.month_number',[$year, $year, $year]);
+        
+        return response()->json([
+            'status' => 200,
+            'message' => 'Data Found',
+            'data' => $data
+        ], Response::HTTP_OK);
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      *
