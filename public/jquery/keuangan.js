@@ -17,8 +17,6 @@ function setupEventHandler(){
 
 // select year
 function selectYear(){
-    $('#filterTahun').append($('<option />').val("").html(`Semua Tahun`));
-
 
     var url = "/api/combo/tahun_doc_keuangan"
     commonAPI.getAPI(url, (response) => {
@@ -106,6 +104,11 @@ function search(page) {
     var url = "/api/doc_belanja_pegawai/get?page=" + page
     
     var filterTahun = $("#filterTahun").val()
+    // console.log(filterTahun)
+    if (filterTahun==null){
+        filterTahun = new Date().getFullYear()
+    }
+    // console.log(filterTahun)
     var filterTipeDokumen = $("#filterTipeDokumen").val()
     var filterJenisDokumen = $("#filterJenisDokumen").val()
     var params = "&tahun=" + filterTahun + "&tipe_dokumen=" + filterTipeDokumen + "&jenis_dokumen=" + filterJenisDokumen
@@ -145,6 +148,96 @@ function search(page) {
             });
         }
     })
+
+    var urlChart = "/api/doc_belanja_pegawai/getchart?year=" + filterTahun
+    commonAPI.getAPI(urlChart, (response) => {
+        // console.log(response)
+        if(response.status==200){
+            // refine structure
+            var data = response.data
+
+            const listMonth = data.map((item) => {
+                return item.month_name
+            })
+            const totalBelanjaPegawai = data.map((item) => {
+                return item.total_belanja_pegawai
+            })
+            const totalBelanjaBarang = data.map((item) => {
+                return item.total_belanja_barang
+            })
+            const totalBelanjaModal = data.map((item) => {
+                return item.total_belanja_modal
+            })
+
+            // console.log(listMonth)
+            // console.log(totalBelanjaPegawai)
+            // console.log(totalBelanjaBarang)
+            // console.log(totalBelanjaModal)
+            if($('#belanjaPegawaiChart').length) {
+                new Chart($("#belanjaPegawaiChart"), {
+                  type: 'bar',
+                  data: {
+                    labels: listMonth,
+                    datasets: [
+                      {
+                        label: "Jumlah Belanja Pegawai",
+                        backgroundColor: ["#b1cfec","#7ee5e5","#66d1d1","#f77eb9","#4d8af0","#b1cfec","#7ee5e5","#66d1d1","#f77eb9","#4d8af0","#b1cfec","#7ee5e5"],
+                        data: totalBelanjaPegawai
+                      }
+                    ]
+                  },
+                  options: {
+                    legend: { display: false },
+                  }
+                });
+            }
+
+            if($('#belanjaBarangChart').length) {
+                new Chart($("#belanjaBarangChart"), {
+                  type: 'bar',
+                  data: {
+                    labels: listMonth,
+                    datasets: [
+                      {
+                        label: "Jumlah Belanja Barang",
+                        backgroundColor: ["#b1cfec","#7ee5e5","#66d1d1","#f77eb9","#4d8af0","#b1cfec","#7ee5e5","#66d1d1","#f77eb9","#4d8af0","#b1cfec","#7ee5e5"],
+                        data: totalBelanjaBarang
+                      }
+                    ]
+                  },
+                  options: {
+                    legend: { display: false },
+                  }
+                });
+            }
+
+            if($('#belanjaModalChart').length) {
+                new Chart($("#belanjaModalChart"), {
+                  type: 'bar',
+                  data: {
+                    labels: listMonth,
+                    datasets: [
+                      {
+                        label: "Jumlah Belanja Modal",
+                        backgroundColor: ["#b1cfec","#7ee5e5","#66d1d1","#f77eb9","#4d8af0","#b1cfec","#7ee5e5","#66d1d1","#f77eb9","#4d8af0","#b1cfec","#7ee5e5"],
+                        data: totalBelanjaModal
+                      }
+                    ]
+                  },
+                  options: {
+                    legend: { display: false },
+                  }
+                });
+            }
+
+            commonJS.loading(false)
+        } else if(response.status==401){
+            commonJS.swalError(response.message, function() {
+                window.location = "/logout";
+            });
+        }
+    })
+
 }
 
 // clear value when modal close
