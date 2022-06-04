@@ -248,6 +248,40 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <table class="ml-3">
+                                        <tr>
+                                            <td width="200px">Tanggal</td>
+                                            <td width='10px'>:</td>
+                                            <td><div id="dateView"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Dokumen</td>
+                                            <td>:</td>
+                                            <td><div id="jenis_dokumenView"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipe Dokumen</td>
+                                            <td>:</td>
+                                            <td><div id="tipe_dokumenView"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Dokumen</td>
+                                            <td>:</td>
+                                            <td><div id="nama_dokumenView"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nomor Dokumen</td>
+                                            <td>:</td>
+                                            <td><div id="nomor_dokumenView"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deskripsi Dokumen</td>
+                                            <td>:</td>
+                                            <td><div id="deskripsi_dokumenView"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <iframe id="previewFrame" style="width: 100%; height: 65vh;"></iframe>
                             </div>
                         </div>          

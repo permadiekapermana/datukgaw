@@ -46,7 +46,7 @@ function buildTemplate(data, index, page, perPage){
         Action
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`
-        rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='view(\"" + data[index].id + "\",\"" + data[index].judul + "\",\"" + data[index].file + "\")' style='margin-right: 5px;'><i class='fa fa-file-text feather-16'></i> View</button>"
+        rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='view(\"" + data[index].id + "\",\"" + data[index].nama_dokumen + "\",\"" + data[index].file + "\",\"" + data[index].date + "\",\"" + data[index].jenis_dokumen + "\",\"" + data[index].tipe_dokumen + "\",\"" + data[index].nomor_dokumen + "\",\"" + data[index].deskripsi_dokumen + "\")' style='margin-right: 5px;'><i class='fa fa-file-text feather-16'></i> View</button>"
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='edit(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-pencil feather-16'></i> Edit</button>"
         if(localStorage.getItem('role')=='admin'){
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='destroy(\"" + data[index].id + "\")'><i class='fa fa-trash feather-16'></i> Delete</button>"    
@@ -342,11 +342,17 @@ function destroy(id) {
     })
 }
 
-function view(id, judul, file) {
+function view(id, nama_dokumen, file, date, jenis_dokumen, tipe_dokumen, nomor_dokumen, deskripsi_dokumen) {
     $('#modalPreview').modal('show');
-    $('#modalPreviewLabel').html(judul)
-    $("#previewFrame").attr("src", '/api/perda/download/'+id)
-    $("#footerPreview").html('<a href="/api/perda/download/' + id + '" download="' + file + '"><button type="button" class="btn btn-input btn-dark"><i class="fa fa-download feather-16"></i> Download</button></a>')
+    $('#modalPreviewLabel').html(nama_dokumen)
+    $('#dateView').html(date)
+    $('#jenis_dokumenView').html(jenis_dokumen)
+    $('#tipe_dokumenView').html(tipe_dokumen)
+    $('#nama_dokumenView').html(nama_dokumen)
+    $('#nomor_dokumenView').html(nomor_dokumen)
+    $('#deskripsi_dokumenView').html(deskripsi_dokumen)
+    $("#previewFrame").attr("src", '/api/doc_belanja_pegawai/download/'+id)
+    $("#footerPreview").html('<a href="/api/doc_belanja_pegawai/download/' + id + '" download="' + file + '"><button type="button" class="btn btn-input btn-dark"><i class="fa fa-download feather-16"></i> Download</button></a>')
 }
 
 $(function(){

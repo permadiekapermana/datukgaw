@@ -35,4 +35,4 @@ Route::get('doc_belanja_pegawai/get/{id}', [DocBelanjaPegawaiApiController::clas
 Route::post('doc_belanja_pegawai/create', [DocBelanjaPegawaiApiController::class, 'store'])->middleware('jwt.verify');
 Route::put('doc_belanja_pegawai/put/{id}', [DocBelanjaPegawaiApiController::class, 'put'])->middleware('jwt.verify');
 Route::delete('doc_belanja_pegawai/delete/{id}',  [DocBelanjaPegawaiApiController::class, 'destroy'])->middleware('jwt.verify');
-Route::get('doc_belanja_pegawai/download/{id}', [DocBelanjaPegawaiApiController::class, 'download'])->middleware('jwt.verify');
+Route::get('doc_belanja_pegawai/download/{id}', [DocBelanjaPegawaiApiController::class, 'download']);
