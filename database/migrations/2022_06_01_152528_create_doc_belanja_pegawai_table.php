@@ -20,7 +20,7 @@ class CreateDocBelanjaPegawaiTable extends Migration
             $table->string('tipe_dokumen');
             $table->string('nama_dokumen');
             $table->string('nomor_dokumen');
-            $table->string('deskripsi_dokumen', 250);
+            $table->string('deskripsi_dokumen', 500);
             $table->string('file', 250);
             $table->uuid('user_id');
             $table->timestamp('created_dt')->useCurrent();

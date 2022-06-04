@@ -266,4 +266,31 @@ class DocBelanjaPegawaiApiController extends Controller
         }
     }
 
+    public function download($id)
+    {
+        $doc = DocBelanjaPegawai::where('id', '=', $id)->get();
+        //$file = $doc[0]["id"];
+
+        $count = count($doc);
+
+        if($count===1){
+            $ids = $doc[0]["id"];
+            $file = $doc[0]["file"];
+            //download document
+            if(Storage::disk('public')->exists("file/$file")){
+                $path = Storage::disk('public')->path("file/$file");
+                $content = File_get_contents($path);
+                return response($content)->withHeaders([
+                    'Content-Type'=>mime_content_type($path)
+                ]);
+            }
+        } else if($count===0) {
+            //return response id not found
+            return response()->json([
+                'status' => 200,
+                'message' => 'ID Not Found'
+            ], Response::HTTP_OK);
+        }
+    }
+
 }
