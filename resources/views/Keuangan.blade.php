@@ -42,9 +42,9 @@
                                     <label class="form-label">Tipe Dokumen</label>
                                     <select class="form-select" id="filterTipeDokumen" aria-label="Default select example" disabled>
                                         <option value="" selected>Semua Tipe Dokumen</option>
-                                        <option value="Daftar Gaji">Daftar Gaji</option>
-                                        <option value="Uang Makan">Uang Makan</option>
-                                        <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                                        <option value="Belanja Pegawai">Belanja Pegawai</option>
+                                        <option value="Belanja Barang">Belanja Barang</option>
+                                        <option value="Belanja Modal">Belanja Modal</option>
                                     </select>
                                 </div>
                             </div><!-- Col -->
@@ -200,9 +200,9 @@
                     <div class="col-sm-9">
                         <select class="form-select" name="tipe_dokumen" id="tipe_dokumen" aria-label="Default select example" disabled>
                             <option value="" selected>-- Pilih Tipe Dokumen --</option>
-                            <option value="Daftar Gaji">Daftar Gaji</option>
-                            <option value="Uang Makan">Uang Makan</option>
-                            <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                            <option value="Belanja Pegawai">Belanja Pegawai</option>
+                            <option value="Belanja Barang">Belanja Barang</option>
+                            <option value="Belanja Modal">Belanja Modal</option>
                         </select>
                     </div>
                 </div>

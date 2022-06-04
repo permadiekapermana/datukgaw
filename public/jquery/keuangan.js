@@ -141,7 +141,7 @@ $(".modal").on("hidden.bs.modal", function(){
 // function add
 function add(){
     $('#modalForm').modal('show');
-    $("#modalLabel").text("Add Dokumen Belanja Pegawai")
+    $("#modalLabel").text("Add Dokumen Keuangan")
     $('#upload_file').html(`
         <div class="form-group row">
             <label for="file" class="col-sm-3 col-form-label">File</label>
@@ -214,6 +214,7 @@ function save(){
     commonJS.loading(true)
 
     // get value
+    let id = $("#id").val(); 
     let date = $("#date").val(); 
     let jenis_dokumen = $("#jenis_dokumen").val();
     let tipe_dokumen = $("#tipe_dokumen").val();
@@ -266,11 +267,32 @@ function save(){
         })
 
     }else{
-        commonAPI.putAPI("/api/perda/put/" + $("#id").val(), dataJSON, function(response){
+        data.append("_method", "PUT");
+        commonAPI.postFormDataAPI(`/api/doc_belanja_pegawai/put/${id}`, data, function(response){
+            // console.log(response)
+
+            // validate response hard code (Not Best Practice)
+            let localJSON = {
+                "error": {
+                    "file": [
+                        "File Must Be PDF Type"
+                    ]
+                }
+            };
+            // console.log(localJSON)
+                
+            if(JSON.stringify(response) == JSON.stringify(localJSON)){
+                commonJS.swalError(response.error[Object.keys(response.error)[0]][0])
+                commonJS.loading(false)
+                return
+            }
+            // end validate response hard code (Not Best Practice)
+
             commonJS.loading(false)
             search()
             $('#modalForm').modal('hide');
         }, function(response){
+            // console.log(response)
             commonJS.loading(false)
             commonJS.swalError(response.responseJSON.message);
         })
@@ -280,23 +302,24 @@ function save(){
 // function edit
 function edit(id){
     $('#modalForm').modal('show');
-    $('#modalLabel').html('Edit Dokumen Perda');
-    $('#upload_file').html('');
-    $('#is_image').html('');
-    $("#tahun").datepicker({
-        format: "yyyy",
-        viewMode: "years", 
-        minViewMode: "years"
-    });
+    $('#modalLabel').html('Edit Dokumen Keuangan');
+    $('#upload_file').html(`
+        <div class="form-group row">
+            <label for="file" class="col-sm-3 col-form-label">File</label>
+            <div class="col-sm-9">
+                <input type="file" class="form-control" id="file" name="file" accept="application/pdf">
+            </div>
+        </div>`);
     commonJS.loading(true)
-    commonAPI.getAPI(`/api/perda/get/${id}`, (response) => {
+    commonAPI.getAPI(`/api/doc_belanja_pegawai/get/${id}`, (response) => {
         if(response.status==200){
             $("#id").val(response.data.id);
-            $("#judul").val(response.data.judul);
-            $("#tipe_dokumen").val(response.data.code_tipe_dokumen);
-            $("#peraturan_daerah").val(response.data.code_peraturan_daerah);
-            $("#no_perda").val(response.data.no_perda);
-            $("#tahun").val(response.data.tahun);
+            $("#date").val(response.data.date);
+            $("#jenis_dokumen").val(response.data.jenis_dokumen);
+            $("#tipe_dokumen").val(response.data.tipe_dokumen);
+            $("#nama_dokumen").val(response.data.nama_dokumen);
+            $("#nomor_dokumen").val(response.data.nomor_dokumen);
+            $("#deskripsi_dokumen").val(response.data.deskripsi_dokumen);
             commonJS.loading(false)
         } else if(response.status==401){
             commonJS.loading(false)
