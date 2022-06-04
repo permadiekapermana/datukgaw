@@ -293,4 +293,23 @@ class DocBelanjaPegawaiApiController extends Controller
         }
     }
 
+    public function comboTahun()
+    {
+        $arr = DocBelanjaPegawai::selectRaw('YEAR(date) as tahun')->groupBy('tahun')->distinct()->get();
+                    
+        if ($arr->isEmpty()){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Data Not Found',
+                'data' => $arr
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'Data Found',
+                'data' => $arr
+            ], Response::HTTP_OK);
+        }
+    }
+
 }
