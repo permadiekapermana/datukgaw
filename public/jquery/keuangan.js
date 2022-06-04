@@ -18,6 +18,8 @@ function setupEventHandler(){
 // select year
 function selectYear(){
 
+    $('#filterTahun').append($('<option />').val('').html('-- Pilih Tahun --'));
+
     var url = "/api/combo/tahun_doc_keuangan"
     commonAPI.getAPI(url, (response) => {
         // console.log(response)
