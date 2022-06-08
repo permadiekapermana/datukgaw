@@ -6,7 +6,7 @@ class CommonMessage {
         this.MSG_EMAIL_NOT_VALID = "<b>[0]</b> is not valid.";
         this.MSG_ONLY_PDF = "<b>[0]</b> type must be (.pdf).";
         this.MSG_ONLY_IMG = "<b>[0]</b> type must be image.";
-        this.MSG_MORE_THAN_10MB = "<b>[0]</b> size cannot more than 10MB.";
+        this.MSG_MORE_THAN_50MB = "<b>[0]</b> size cannot more than 50MB.";
         this.MSG_MORE_THAN_1MB = "<b>[0]</b> size cannot more than 1MB.";
     }
 
