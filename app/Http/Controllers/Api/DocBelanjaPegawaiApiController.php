@@ -115,7 +115,7 @@ class DocBelanjaPegawaiApiController extends Controller
             'nama_dokumen' => 'required|string',
             'nomor_dokumen' => 'required|string',
             'deskripsi_dokumen' => 'required|string',
-            'file' => 'required|mimes:pdf|max:10000',
+            'file' => 'required|mimes:pdf|max:50000',
             'created_by' => 'string',
             'updated_by' => 'string'
         ],[
