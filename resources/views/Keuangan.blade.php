@@ -111,11 +111,13 @@
     <div class="card">
         <div class="card-body">
             {{-- Button Group --}}
+            @if(session('role') == 'admin')
             <div class="row">
                 <div class="col-sm-12" style="text-align: right;">
                     <button type="button" class="btn btn-light mb-3" onClick="add()" disabled><i data-feather="plus" class="feather-16"></i> Add</button>
                 </div><!-- Col -->
             </div>
+            @endif
             <!-- End Button Group -->
             <div class="row">
                 <div class="col-sm-12">
@@ -158,6 +160,7 @@
     {{-- End Table --}}
 
     {{-- Modal insert data --}}
+    @if(session('role') == 'admin')
     <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modal-system" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -230,6 +233,7 @@
         </form>
     </div>
     </div>
+    @endif
 
     <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalPreview" tabindex="-1" role="dialog" aria-labelledby="modal-system" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

@@ -26,6 +26,24 @@
         <span class="link-title">Keuangan</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+        <i class="link-icon" data-feather="package"></i>
+        <span class="link-title">BMN</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+        <i class="link-icon" data-feather="book-open"></i>
+        <span class="link-title">SAIBA</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+        <i class="link-icon" data-feather="user-check"></i>
+        <span class="link-title">Kepegawaian</span>
+        </a>
+    </li>
     @endif
 
     @if(session('role') == 'admin')

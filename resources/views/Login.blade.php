@@ -33,11 +33,11 @@
 							<div class="row">
                 <div class="col-md-12">
                   <div class="auth-form-wrapper px-4 py-5">
-                    <a href="#" class="noble-ui-logo d-block mb-2"><span>DATUKGAW</span></a>
-                    <h5 class="text-muted font-weight-normal mb-4">Welcome back! Log in to your account.</h5>
+                    <a href="#" class="noble-ui-logo d-block mb-2"><span>Dashboard Audit dokumen Tata Usaha dan Keuangan (DATUk) GAW Bukit Kototabang</span></a>
+                    <h5 class="text-muted font-weight-normal mb-4">Selamat datang! Silahkan login dengan akun anda.</h5>
                     {{-- <form class="forms-sample"> --}}
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputEmail1">Email</label>
                         <input id="email" autofocus type="text" class="form-control" placeholder="Masukan Email">
                       </div>
                       <div class="form-group">
