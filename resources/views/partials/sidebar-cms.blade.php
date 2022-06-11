@@ -1,7 +1,7 @@
 <nav class="sidebar">
 <div class="sidebar-header">
     <a href="#" class="sidebar-brand">
-    <h6>DATUKGAW</h6>
+        <img class="wd-100" src="../../assets/images/datuk.png">
     </a>
     <div class="sidebar-toggler not-active">
     <span></span>

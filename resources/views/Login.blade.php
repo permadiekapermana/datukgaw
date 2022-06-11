@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
 	<!-- endinject -->
   <!-- Layout styles -->  
-    <link rel="stylesheet" href="{{ asset('assets/css/demo_1/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/demo_1/app.css') }}">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
   {{-- sweet alert custom style --}}
@@ -26,14 +26,18 @@
 	<div class="main-wrapper">
 		<div class="page-wrapper full-page">
 			<div class="page-content d-flex align-items-center justify-content-center">
-
 				<div class="row w-100 mx-0 auth-page">
 					<div class="col-md-8 col-xl-6 mx-auto">
 						<div class="card">
 							<div class="row">
                 <div class="col-md-12">
                   <div class="auth-form-wrapper px-4 py-5">
-                    <a href="#" class="noble-ui-logo d-block mb-2"><span>Dashboard Audit dokumen Tata Usaha dan Keuangan (DATUk) GAW Bukit Kototabang</span></a>
+                    <div class="d-flex flex-column align-items-center">
+                      <div>
+                        <img src="../../../assets/images/datuk-gaw.png" class="wd-500 mb-5">
+                      </div>
+                    </div>
+                    <a href="#" class="noble-ui-logo d-block mb-2"><span>Dashboard Dokumen Audit Tata Usaha dan Keuangan (DATUk) GAW Bukit Kototabang</span></a>
                     <h5 class="text-muted font-weight-normal mb-4">Selamat datang! Silahkan login dengan akun anda.</h5>
                     {{-- <form class="forms-sample"> --}}
                       <div class="form-group">
