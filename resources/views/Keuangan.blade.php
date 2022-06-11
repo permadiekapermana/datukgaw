@@ -49,9 +49,14 @@
                                     <label class="form-label">Jenis Dokumen</label>
                                     <select class="form-select" id="filterJenisDokumen" aria-label="Default select example" disabled>
                                         <option value="" selected>Semua Jenis Dokumen</option>
-                                        <option value="Daftar Gaji">Daftar Gaji</option>
+                                        <option value="Daftar/kekurangan Gaji">Daftar/kekurangan Gaji</option>
                                         <option value="Uang Makan">Uang Makan</option>
                                         <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                                        <option value="SPM/SP2D">SPM/SP2D</option>
+                                        <option value="SPTB">SPTB</option>
+                                        <option value="Dokumen Bukti Pengeluaran">Dokumen Bukti Pengeluaran</option>
+                                        <option value="Dokumen Kontrak/SPK">Dokumen Kontrak/SPK</option>
+                                        <option value="BAPHP/BAST">BAPHP/BAST</option>
                                     </select>
                                 </div>
                             </div><!-- Col -->
@@ -188,9 +193,14 @@
                     <div class="col-sm-9">
                         <select class="form-select" name="jenis_dokumen" id="jenis_dokumen" aria-label="Default select example" disabled>
                             <option value="" selected>-- Pilih Jenis Dokumen --</option>
-                            <option value="Daftar Gaji">Daftar Gaji</option>
+                            <option value="Daftar/kekurangan Gaji">Daftar/kekurangan Gaji</option>
                             <option value="Uang Makan">Uang Makan</option>
                             <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                            <option value="SPM/SP2D">SPM/SP2D</option>
+                            <option value="SPTB">SPTB</option>
+                            <option value="Dokumen Bukti Pengeluaran">Dokumen Bukti Pengeluaran</option>
+                            <option value="Dokumen Kontrak/SPK">Dokumen Kontrak/SPK</option>
+                            <option value="BAPHP/BAST">BAPHP/BAST</option>
                         </select>
                     </div>
                 </div>
