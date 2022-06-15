@@ -68,8 +68,8 @@ function buildTemplate(data, index, page, perPage){
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='view(\"" + data[index].id + "\",\"" + data[index].nama_dokumen + "\",\"" + data[index].file + "\",\"" + data[index].date + "\",\"" + data[index].jenis_dokumen + "\",\"" + data[index].tipe_dokumen + "\",\"" + data[index].nomor_dokumen + "\",\"" + data[index].deskripsi_dokumen + "\")' style='margin-right: 5px;'><i class='fa fa-file-text feather-16'></i> View</button>"
-        rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='edit(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-pencil feather-16'></i> Edit</button>"
         if(localStorage.getItem('role')=='admin'){
+        rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='edit(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-pencil feather-16'></i> Edit</button>"
         rows += "<button type='button' class='btn btn-light btn-xs dropdown-item' onClick='destroy(\"" + data[index].id + "\")'><i class='fa fa-trash feather-16'></i> Delete</button>"    
         }
     rows += `</div>
@@ -324,9 +324,9 @@ function save(){
         return
     }
     // validate file size
-    if ($("#file")[0].files[0].size>10000000) {
+    if ($("#file")[0].files[0].size>50000000) {
         $("#file").focus();
-        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_MORE_THAN_10MB))
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_MORE_THAN_50MB))
         return
     }   
 

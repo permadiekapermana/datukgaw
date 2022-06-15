@@ -49,9 +49,14 @@
                                     <label class="form-label">Jenis Dokumen</label>
                                     <select class="form-select" id="filterJenisDokumen" aria-label="Default select example" disabled>
                                         <option value="" selected>Semua Jenis Dokumen</option>
-                                        <option value="Daftar Gaji">Daftar Gaji</option>
+                                        <option value="Daftar/kekurangan Gaji">Daftar/kekurangan Gaji</option>
                                         <option value="Uang Makan">Uang Makan</option>
                                         <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                                        <option value="SPM/SP2D">SPM/SP2D</option>
+                                        <option value="SPTB">SPTB</option>
+                                        <option value="Dokumen Bukti Pengeluaran">Dokumen Bukti Pengeluaran</option>
+                                        <option value="Dokumen Kontrak/SPK">Dokumen Kontrak/SPK</option>
+                                        <option value="BAPHP/BAST">BAPHP/BAST</option>
                                     </select>
                                 </div>
                             </div><!-- Col -->
@@ -111,11 +116,13 @@
     <div class="card">
         <div class="card-body">
             {{-- Button Group --}}
+            @if(session('role') == 'admin')
             <div class="row">
                 <div class="col-sm-12" style="text-align: right;">
                     <button type="button" class="btn btn-light mb-3" onClick="add()" disabled><i data-feather="plus" class="feather-16"></i> Add</button>
                 </div><!-- Col -->
             </div>
+            @endif
             <!-- End Button Group -->
             <div class="row">
                 <div class="col-sm-12">
@@ -158,6 +165,7 @@
     {{-- End Table --}}
 
     {{-- Modal insert data --}}
+    @if(session('role') == 'admin')
     <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modal-system" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -185,9 +193,14 @@
                     <div class="col-sm-9">
                         <select class="form-select" name="jenis_dokumen" id="jenis_dokumen" aria-label="Default select example" disabled>
                             <option value="" selected>-- Pilih Jenis Dokumen --</option>
-                            <option value="Daftar Gaji">Daftar Gaji</option>
+                            <option value="Daftar/kekurangan Gaji">Daftar/kekurangan Gaji</option>
                             <option value="Uang Makan">Uang Makan</option>
                             <option value="Tunjangan Kinerja">Tunjangan Kinerja</option>
+                            <option value="SPM/SP2D">SPM/SP2D</option>
+                            <option value="SPTB">SPTB</option>
+                            <option value="Dokumen Bukti Pengeluaran">Dokumen Bukti Pengeluaran</option>
+                            <option value="Dokumen Kontrak/SPK">Dokumen Kontrak/SPK</option>
+                            <option value="BAPHP/BAST">BAPHP/BAST</option>
                         </select>
                     </div>
                 </div>
@@ -230,6 +243,7 @@
         </form>
     </div>
     </div>
+    @endif
 
     <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modalPreview" tabindex="-1" role="dialog" aria-labelledby="modal-system" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

@@ -1,7 +1,7 @@
 <nav class="sidebar">
 <div class="sidebar-header">
     <a href="#" class="sidebar-brand">
-    <h6>DATUKGAW</h6>
+        <img class="wd-100" src="../../assets/images/datuk.png">
     </a>
     <div class="sidebar-toggler not-active">
     <span></span>
@@ -24,6 +24,24 @@
         <a href="/cms/keuangan" class="nav-link">
         <i class="link-icon" data-feather="dollar-sign"></i>
         <span class="link-title">Keuangan</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+        <i class="link-icon" data-feather="package"></i>
+        <span class="link-title">BMN</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+        <i class="link-icon" data-feather="book-open"></i>
+        <span class="link-title">SAIBA</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+        <i class="link-icon" data-feather="user-check"></i>
+        <span class="link-title">Kepegawaian</span>
         </a>
     </li>
     @endif
