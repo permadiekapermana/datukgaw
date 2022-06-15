@@ -277,6 +277,59 @@ class DocBelanjaPegawaiApiController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\DocBelanjaPegawai  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function put_nofile(Request $request, DocBelanjaPegawai $id)
+    {
+        //Validate data
+        $data = $request->only('date', 'jenis_dokumen', 'tipe_dokumen', 'nama_dokumen', 'nomor_dokumen', 'deskripsi_dokumen', 'created_by', 'updated_by');
+        $validator = Validator::make($data, [
+            'date' => 'required|date',
+            'jenis_dokumen' => 'required|string',
+            'tipe_dokumen' => 'required|string',
+            'nama_dokumen' => 'required|string',
+            'nomor_dokumen' => 'required|string',
+            'deskripsi_dokumen' => 'required|string',
+        ],[
+            'date.required' => 'Date is Required',
+            'jenis_dokumen.required' => 'Jenis Dokumen is Required',
+            'jenis_dokumen.String' => 'Jenis Dokumen Must Be String',
+            'tipe_dokumen.required' => 'Tipe Dokumen is Required',
+            'tipe_dokumen.String' => 'Tipe Dokumen Must Be String',
+            'nama_dokumen.required' => 'Nama Dokumen is Required',
+            'nama_dokumen.String' => 'Nama Dokumen Must Be String',
+            'nomor_dokumen.required' => 'Nomor Dokumen is Required',
+            'nomor_dokumen.String' => 'Nomor Dokumen Must Be String',
+            'deskripsi_dokumen.required' => 'Deskripsi Dokumen is Required',
+            'deskripsi_dokumen.String' => 'Deskripsi Dokumen Must Be String',
+        ]);
+
+        //Request is valid, update dokumenBelanja
+        $id = $id->update([
+            'date' => $request->date,
+            'jenis_dokumen' => $request->jenis_dokumen,
+            'tipe_dokumen' => $request->tipe_dokumen,
+            'nama_dokumen' => $request->nama_dokumen,
+            'nomor_dokumen' => $request->nomor_dokumen,
+            'deskripsi_dokumen' => $request->deskripsi_dokumen,
+            'user_id' => Auth::id(),
+            'updated_dt' => date("Y-m-d H:i:s"),
+            'updated_by' => Auth::user()->name
+        ]);
+
+        //Dokumen Belanja updated, return success response
+        return response()->json([
+            'status' => 200,
+            'message' => 'Data updated successfully',
+            'data' => $id
+        ], Response::HTTP_OK);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\DocBelanjaPegawai  $doc

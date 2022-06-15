@@ -34,6 +34,7 @@ Route::get('doc_belanja_pegawai/get', [DocBelanjaPegawaiApiController::class, 'g
 Route::get('doc_belanja_pegawai/get/{id}', [DocBelanjaPegawaiApiController::class, 'show'])->middleware('jwt.verify');
 Route::post('doc_belanja_pegawai/create', [DocBelanjaPegawaiApiController::class, 'store'])->middleware('jwt.verify');
 Route::put('doc_belanja_pegawai/put/{id}', [DocBelanjaPegawaiApiController::class, 'put'])->middleware('jwt.verify');
+Route::put('doc_belanja_pegawai/put_nofile/{id}', [DocBelanjaPegawaiApiController::class, 'put_nofile'])->middleware('jwt.verify');
 Route::delete('doc_belanja_pegawai/delete/{id}',  [DocBelanjaPegawaiApiController::class, 'destroy'])->middleware('jwt.verify');
 Route::get('doc_belanja_pegawai/download/{id}', [DocBelanjaPegawaiApiController::class, 'download']);
 Route::get('combo/tahun_doc_keuangan', [DocBelanjaPegawaiApiController::class, 'comboTahun']);
