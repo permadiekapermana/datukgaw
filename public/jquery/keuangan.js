@@ -265,6 +265,9 @@ function add(){
                 <input type="file" class="form-control" id="file" name="file" accept="application/pdf">
             </div>
         </div>`);
+    $('#button_save').html(`
+        <button type="button" class="btn btn-input btn-dark" onClick="save()">Save</button>
+    `)
 }
 
 // function save
@@ -426,6 +429,9 @@ function edit(id){
                 <input type="file" class="form-control" id="file" name="file" accept="application/pdf">
             </div>
         </div>`);
+    $('#button_save').html(`
+        <button type="button" class="btn btn-input btn-dark" onClick="update()">Update</button>
+    `)
     commonJS.loading(true)
     commonAPI.getAPI(`/api/doc_belanja_pegawai/get/${id}`, (response) => {
         if(response.status==200){
@@ -442,6 +448,139 @@ function edit(id){
             commonJS.swalError(response.responseJSON.message)
         }
     })
+}
+
+// function update
+function update(){
+    commonJS.clearMessage()
+    if ($("#date").val() == '') {
+        $("#date").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Tanggal"], commonMsg.MSG_REQUIRED))
+        return
+    }
+
+    if ($("#jenis_dokumen").val() == '') {
+        $("#jenis_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Jenis Dokumen"], commonMsg.MSG_REQUIRED))
+        return
+    }
+
+    if ($("#tipe_dokumen").val() == '') {
+        $("#tipe_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Tipe Dokumen"], commonMsg.MSG_REQUIRED))
+        return
+    }
+    
+    if ($("#nama_dokumen").val() == '') {
+        $("#nama_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Nama Dokumen"], commonMsg.MSG_REQUIRED))
+        return
+    }
+    
+    if ($("#nomor_dokumen").val() == '') {
+        $("#nomor_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Nomor Dokumen"], commonMsg.MSG_REQUIRED))
+        return
+    }
+
+    if ($("#deskripsi_dokumen").val() == '') {
+        $("#deskripsi_dokumen").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Deskripsi Dokumen"], commonMsg.MSG_REQUIRED))
+        return
+    } 
+
+    commonJS.loading(true)
+
+    // get value
+    let id = $("#id").val(); 
+    let date = $("#date").val(); 
+    let jenis_dokumen = $("#jenis_dokumen").val();
+    let tipe_dokumen = $("#tipe_dokumen").val();
+    let nama_dokumen = $("#nama_dokumen").val();
+    let nomor_dokumen = $("#nomor_dokumen").val();
+    let deskripsi_dokumen = $("#deskripsi_dokumen").val();
+    // console.log($("#file")[0].files[0].type)
+    // form data
+    var data = new FormData();
+    data.append("date", date);
+    data.append("jenis_dokumen", jenis_dokumen);
+    data.append("tipe_dokumen", tipe_dokumen);
+    data.append("nama_dokumen", nama_dokumen);
+    data.append("nomor_dokumen", nomor_dokumen);
+    data.append("deskripsi_dokumen", deskripsi_dokumen);
+
+    // console.log($("#id").val())
+
+    if ($("#file").val() == '') {
+        // API update no File
+        console.log('no file')
+        // json data
+        let dataJSON = {
+            "date": date,
+            "jenis_dokumen": jenis_dokumen,
+            "tipe_dokumen": tipe_dokumen,
+            "nama_dokumen": nama_dokumen,
+            "nomor_dokumen": nomor_dokumen,
+            "deskripsi_dokumen": deskripsi_dokumen,
+        }
+        commonAPI.putAPI("/api/doc_belanja_pegawai/put_nofile/" + $("#id").val(), dataJSON, function(response){
+            commonJS.loading(false)
+            search()
+            $('#modalForm').modal('hide');
+        }, function(response){
+            commonJS.loading(false)
+            commonJS.swalError(response.responseJSON.message);
+        })
+        
+
+    } else {
+        // API Update with File
+        // console.log($("#file")[0].files[0])
+        // Validate type file
+        if ($("#file")[0].files[0].type!='application/pdf') {
+            $("#file").focus();
+            commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_ONLY_PDF))
+            return
+        }
+        // validate file size
+        if ($("#file")[0].files[0].size>10000000) {
+            $("#file").focus();
+            commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["File"], commonMsg.MSG_MORE_THAN_10MB))
+            return
+        }
+        let file = $("#file")[0].files[0];
+        data.append("file", file);
+        data.append("_method", "PUT");
+        commonAPI.postFormDataAPI(`/api/doc_belanja_pegawai/put/${id}`, data, function(response){
+            // console.log(response)
+
+            // validate response hard code (Not Best Practice)
+            let localJSON = {
+                "error": {
+                    "file": [
+                        "File Must Be PDF Type"
+                    ]
+                }
+            };
+            // console.log(localJSON)
+                
+            if(JSON.stringify(response) == JSON.stringify(localJSON)){
+                commonJS.swalError(response.error[Object.keys(response.error)[0]][0])
+                commonJS.loading(false)
+                return
+            }
+            // end validate response hard code (Not Best Practice)
+
+            commonJS.loading(false)
+            search()
+            $('#modalForm').modal('hide');
+        }, function(response){
+            // console.log(response)
+            commonJS.loading(false)
+            commonJS.swalError(response.responseJSON.message);
+        })
+    }
+
 }
 
 function destroy(id) {
