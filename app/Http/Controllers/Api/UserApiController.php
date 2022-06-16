@@ -316,4 +316,39 @@ class UserApiController extends Controller
             ], Response::HTTP_OK);
         }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function forgot(User $user, $email)
+    {
+        //get all data user by email
+        $user = User::where('email', '=', $email)->get();
+        //count data for True or false
+        $count = count($user);
+        //check for delete
+        if($count === 1){
+            //Request is valid, update user
+            $user[0]->update([
+                'password' => bcrypt($email)
+            ]);
+
+            //User updated, return success response
+            return response()->json([
+                'status' => 200,
+                'message' => 'Password updated successfully',
+                'data' => $user
+            ], Response::HTTP_OK);
+        } else {
+            //response id not found
+            return response()->json([
+                'status' => 404,
+                'message' => 'Email user not Found!'
+            ], Response::HTTP_OK);
+        }
+    }
+
 }
