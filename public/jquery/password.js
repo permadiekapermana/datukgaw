@@ -39,9 +39,10 @@ function save(){
     let data = {
         "password": password
     }
-    commonAPI.putAPI("/api/user/put/" + id, data, function(response){
+    commonAPI.putAPI("/api/user/change-password/" + id, data, function(response){
         commonJS.loading(false)
         $("#password").val("")
+        $("#password2").val("")
         commonJS.swalOk(response.message);
     }, function(response){
         commonJS.loading(false)

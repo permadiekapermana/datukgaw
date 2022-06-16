@@ -32,27 +32,20 @@
 							<div class="row">
                 <div class="col-md-12">
                   <div class="auth-form-wrapper px-4 py-5">
-                    <div class="d-flex flex-column align-items-center">
-                      <div>
-                        <img src="../../../assets/images/datuk-gaw.png" class="wd-500 mb-5">
-                      </div>
-                    </div>
-                    <a href="#" class="noble-ui-logo d-block mb-2"><span>Dashboard Dokumen Audit Tata Usaha dan Keuangan (DATUk) GAW Bukit Kototabang</span></a>
-                    <h5 class="text-muted font-weight-normal mb-4">Selamat datang! Silahkan login dengan akun anda.</h5>
                     {{-- <form class="forms-sample"> --}}
+                      <div class="row">
+                        <div class="col-sm-12" id="msgBox">
+                        </div>
+                      </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
+                        <label for="exampleInputEmail1">Enter your Email</label>
                         <input id="email" autofocus type="text" class="form-control" placeholder="Masukan Email">
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input id="password" type="password" class="form-control" placeholder="Masukan Password">
+                      <div class="mt-3">
+                        <button class="btn btn-primary mr-2 mb-2 mb-md-0 text-white" style="width: 100%;" onclick="reset()">Reset</button>
                       </div>
                       <div class="mt-3">
-                        <button class="btn btn-primary mr-2 mb-2 mb-md-0 text-white" style="width: 100%;" onclick="login()">Login</button>
-                      </div>
-                      <div class="mt-3">
-                        <p>Forgot Password ? Reset your password <a href="/reset-password">Here</a></p>
+                        <p>Login <a href="/">Here</a></p>
                       </div>
                     {{-- </form> --}}
                   </div>
@@ -82,8 +75,9 @@
     <script src="{{ asset('jquery/header.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
     <script src="{{ asset('js/commonAPI.js') }}"></script>
+    <script src="{{ asset('js/commonMessage.js') }}"></script>
     <!-- JQUERY -->
-    <script src="{{ asset('jquery/login.js') }}"></script>
+    <script src="{{ asset('jquery/reset.js') }}"></script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

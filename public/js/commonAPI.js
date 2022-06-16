@@ -187,6 +187,9 @@ class CommonAPI {
                 commonJS.swalOk(resp.message)
             } else if (resp.status == 400) {
                 commonJS.handleResponse(resp, error)
+            } else if (resp.status == 404) {
+                commonJS.swalError(resp.message)
+                commonJS.loading(false)
             } else {
                 commonJS.handleResponse(resp, error)
             }

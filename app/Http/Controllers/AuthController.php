@@ -33,4 +33,9 @@ class AuthController extends Controller
         session()->forget('role');
         return redirect('/login');
     }
+
+    public function Reset(){
+        return view('Reset', ["title" => 'Reset']);
+    }
+
 }

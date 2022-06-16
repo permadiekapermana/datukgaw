@@ -20,6 +20,7 @@ Route::get('/404', 'NotFoundController@NotFound');
 // route login
 Route::get('/login_process/{role}', 'AuthController@login_process');
 Route::get('/login', 'AuthController@Login');
+Route::get('/reset-password', 'AuthController@Reset');
 
 // CMS Routes
 // route admin
