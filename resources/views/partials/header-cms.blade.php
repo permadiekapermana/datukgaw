@@ -90,6 +90,12 @@
                                     <span>Profile</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/cms/change-password" class="nav-link">
+                                    <i data-feather="key"></i>
+                                    <span>Change Password</span>
+                                </a>
+                            </li>
                             {{-- <li class="nav-item">
                                 <a href="javascript:;" class="nav-link">
                                     <i data-feather="edit"></i>

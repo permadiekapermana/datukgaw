@@ -13,4 +13,7 @@ class UsersController extends Controller
     public function Profile(){
       return view('Profile', ["title" => 'Profile']);
     }
+    public function Password(){
+      return view('Password', ["title" => 'Password']);
+    }
 }

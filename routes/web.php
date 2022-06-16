@@ -37,5 +37,6 @@ Route::group(['middleware' => ['login.middleware']], function() {
         Route::get('/dashboard', 'DashboardController@Dashboard');
         Route::get('/keuangan', 'KeuanganController@Keuangan');
         Route::get('/profile', 'UsersController@Profile');
+        Route::get('/change-password', 'UsersController@Password');
     });
 });
