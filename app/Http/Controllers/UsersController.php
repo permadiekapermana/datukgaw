@@ -10,4 +10,7 @@ class UsersController extends Controller
     public function Users(){
       return view('Users', ["title" => 'Users']);
     }
+    public function Profile(){
+      return view('Profile', ["title" => 'Profile']);
+    }
 }
