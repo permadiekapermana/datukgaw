@@ -23,7 +23,8 @@ class UserApiController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|max:50',
-            'role' => 'required|string|max:10'
+            'role' => 'required|string|max:10',
+            'jabatan' => 'required|string|max:50'
         ],[
             'name.required' => 'Name is Required',
             'name.string' => 'Name Must Be String',
@@ -33,7 +34,9 @@ class UserApiController extends Controller
             'password.string' => 'Password Must Be String',
             'password.min' => 'Password Must Be At Least 8 Character',
             'password.max' => 'Password Must Not Be Greater Than 50 Characters',
-            'role.required' => 'Role is Required'
+            'role.required' => 'Role is Required',
+            'jabatan.required' => 'Jabatan is Required',
+            'jabatan.string' => 'Jabatan Must Be String'
         ]);
 
         //Send failed response if request is not valid
@@ -49,6 +52,7 @@ class UserApiController extends Controller
             'created_by' => $request->name,
             'updated_by' => $request->name,
             'role' => $request->role,
+            'jabatan' => $request->jabatan,
         ]);
 
         //User created, return success response
@@ -163,7 +167,8 @@ class UserApiController extends Controller
                                 'users.updated_dt', 
                                 'users.created_by',
                                 'users.updated_by',
-                                'users.role as code_role');
+                                'users.role as code_role',
+                                'users.jabatan');
         // by name
         if( $request->name){
             $data = $select
@@ -220,7 +225,8 @@ class UserApiController extends Controller
                             'users.updated_dt', 
                             'users.created_by',
                             'users.updated_by',
-                            'users.role')
+                            'users.role',
+                            'users.jabatan')
                             ->find($id);
         
         if (!$user) {
@@ -248,18 +254,21 @@ class UserApiController extends Controller
     public function update(Request $request, User $user)
     {
         //Validate data
-        $data = $request->only('name', 'email', 'password', 'role', 'updated_dt', 'updated_by');
+        $data = $request->only('name', 'email', 'password', 'role', 'jabatan', 'updated_dt', 'updated_by');
         $validator = Validator::make($data, [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'role' => 'required|string|max:10',
-            'updated_by' => 'string'
+            'updated_by' => 'string',
+            'jabatan' => 'required|string'
         ],[
             'name.required' => 'Name is Required',
             'name.string' => 'Name Must Be String',
             'email.required' => 'Email is Required',
             'email.unique' => 'Email Has Already Been Taken',
             'role.required' => 'Role is Required',
+            'jabatan.required' => 'Jabatan is Required',
+            'jabatan.string' => 'Jabatan Must Be String',
         ]);
 
         //Request is valid, update user
@@ -267,6 +276,7 @@ class UserApiController extends Controller
         	'name' => $request->name,
         	'email' => $request->email,
             'role' => $request->role,
+            'jabatan' => $request->jabatan,
             'updated_dt' => date("Y-m-d H:i:s"),
             'updated_by' => $request->name
         ]);
