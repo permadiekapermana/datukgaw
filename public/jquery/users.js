@@ -41,6 +41,7 @@ function buildTemplate(data, index, page, perPage){
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`       
         rows += "<button type='button' class='btn btn-light btn-xs  dropdown-item' onClick='edit(\"" + data[index].id + "\")' style='margin-right: 5px;'><i class='fa fa-pencil feather-16'></i> Edit</button>"
+        rows += "<button type='button' class='btn btn-light btn-xs  dropdown-item' onClick='reset(\"" + data[index].email + "\")' style='margin-right: 5px;'><i class='fa fa-key feather-16'></i> Reset Password</button>"
         rows += "<button type='button' class='btn btn-light btn-xs  dropdown-item' onClick='destroy(\"" + data[index].id + "\")'><i class='fa fa-trash feather-16'></i> Delete</button>" 
     rows += `</div>
     </div>`
@@ -265,6 +266,20 @@ function destroy(id) {
     commonJS.swalConfirmAjax("Are you sure you want to delete this data?", "Yes", "No", commonAPI.deleteAPI, `/api/user/delete/${id}`, function(response){
         if (response.status == 200) {
             search(globalPage);
+        } else if (response.status==401){
+            swalError(response.message)
+        }
+        commonJS.loading(false)
+    }, function(response){
+        commonJS.loading(false)
+        commonJS.swalError(response.responseJSON.message);
+    })
+}
+
+function reset(email) {
+    commonJS.swalConfirmAjax("Are you sure you want to delete this data?", "Yes", "No", commonAPI.resetAPI, `/api/user/forgot-password/${email}`, function(response){
+        if (response.status == 200) {
+            search(globalPage);            
         } else if (response.status==401){
             swalError(response.message)
         }

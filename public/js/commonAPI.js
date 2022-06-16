@@ -161,6 +161,40 @@ class CommonAPI {
         }
     }
 
+    async resetAPI(url, success, error){
+        var resp;
+        try {
+            resp = await $.ajax({
+                url: url,
+                type: "PUT",
+                dataType: "JSON",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    // 'Content-Type':'application/json'
+                },
+                // success: function(response){
+                //     commonJS.handleResponse(response, success)
+                // },
+                // error:function(response){
+                //     commonJS.handleResponse(response, error)
+                // }
+            });
+            if (resp.status == 200){
+                commonJS.handleResponse(resp, success)
+                commonJS.swalOk(resp.message)
+            } else if (resp.status == 400) {
+                commonJS.handleResponse(resp, error)
+            } else {
+                commonJS.handleResponse(resp, error)
+            }
+        } catch (error) {
+            commonJS.swalError(error.responseJSON.message || "Unexpected error")
+        }
+    }
+
     async hideShowAPI(url, success, error){
         var resp;
         try {

@@ -349,7 +349,7 @@ class UserApiController extends Controller
             //User updated, return success response
             return response()->json([
                 'status' => 200,
-                'message' => 'Password updated successfully',
+                'message' => 'Password reset successfully',
                 'data' => $user
             ], Response::HTTP_OK);
         } else {
