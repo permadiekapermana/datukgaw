@@ -132,6 +132,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
+                    <div class="col-sm-9">                    
+                        <select class="form-select" name="jabatan" id="jabatan" aria-label="Default select example" disabled>
+                            <option value="">-- Select Jabatan --</option>
+                            <option value="Kepala Subbagian Tata Usaha">Kepala Subbagian Tata Usaha</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+                </div>
                 <div id="pass"></div>                
         </div>
         <div class="modal-footer">

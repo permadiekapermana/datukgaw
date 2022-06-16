@@ -123,6 +123,7 @@ $(".modal").on("hidden.bs.modal", function(){
     $("#email").val('');
     $("#password").val('');
     $("#role").val('');
+    $("#jabatan").val('');
 });
 
 // function add
@@ -160,6 +161,12 @@ function save(){
         return
     }
 
+    if ($("#jabatan").val() == '') {
+        $("#jabatan").focus();
+        commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Jabatan"], commonMsg.MSG_REQUIRED))
+        return
+    }
+
     if (!regex.test($("#email").val())) {
         $("#email").focus();
         commonJS.showErrorMessage("#msgBox", commonMsg.getMessage(["Email"], commonMsg.MSG_EMAIL_NOT_VALID))
@@ -173,6 +180,7 @@ function save(){
     let name = $("#name").val();
     let email = $("#email").val();
     let role = $("#role").val();
+    let jabatan = $("#jabatan").val();
 
     if ($("#id").val() == ""){
         // validasi input password
@@ -195,7 +203,8 @@ function save(){
             "name": name,
             "email": email,
             "password": password,
-            "role": role
+            "role": role,
+            "jabatan": jabatan
         }
 
         commonAPI.postAPI("/api/user/create", data, function(response){
@@ -212,6 +221,7 @@ function save(){
             "name": name,
             "email": email,
             "role": role,
+            "jabatan": jabatan
         }
         commonAPI.putAPI("/api/user/put/" + $("#id").val(), data, function(response){
             commonJS.loading(false)
@@ -236,6 +246,7 @@ function edit(id){
             $("#name").val(response.data.name);
             $("#email").val(response.data.email);
             $("#role").val(response.data.role);
+            $("#jabatan").val(response.data.jabatan);
             // console.log(response.data.role)
             // $('#role').each(function() {
             //     if($(this).val() == response.data.role) {
