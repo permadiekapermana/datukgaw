@@ -28,6 +28,12 @@ function buildTemplate(data, index, page, perPage){
     rows += data[index].email
     rows += "</td>"
     rows += "<td>"
+    rows += data[index].code_role
+    rows += "</td>"
+    rows += "<td>"
+    rows += data[index].jabatan
+    rows += "</td>"
+    rows += "<td>"
     rows += `
     <div class="dropdown">
     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

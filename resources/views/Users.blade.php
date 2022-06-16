@@ -64,6 +64,8 @@
                                     <th width="25px">No</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Jabatan</th>
                                     <th width="125px">Action</th>
                                 </tr>
                             </thead>
