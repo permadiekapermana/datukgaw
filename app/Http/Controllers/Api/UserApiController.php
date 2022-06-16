@@ -351,4 +351,37 @@ class UserApiController extends Controller
         }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function changepassword(Request $request, User $user)
+    {
+        //Validate data
+        $data = $request->only('password', 'updated_dt', 'updated_by');
+        $validator = Validator::make($data, [
+            'password' => 'required|string'
+        ],[
+            'password.required' => 'Password is Required',
+            'password.string' => 'Password Must Be String',
+        ]);
+
+        //Request is valid, update user
+        $user = $user->update([
+        	'password' => bcrypt($request->password),
+            'updated_dt' => date("Y-m-d H:i:s"),
+            'updated_by' => $request->name
+        ]);
+
+        //User updated, return success response
+        return response()->json([
+            'status' => 200,
+            'message' => 'Data updated successfully',
+            'data' => $user
+        ], Response::HTTP_OK);
+    }
+
 }

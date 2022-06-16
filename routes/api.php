@@ -29,6 +29,7 @@ Route::get('user/get/{id}', [UserApiController::class, 'show'])->middleware('jwt
 Route::put('user/put/{user}', [UserApiController::class, 'update'])->middleware('jwt.verify');
 Route::delete('user/delete/{user}',  [UserApiController::class, 'destroy'])->middleware('jwt.verify');
 Route::put('user/forgot-password/{email}',  [UserApiController::class, 'forgot']);
+Route::put('user/change-password/{user}', [UserApiController::class, 'changepassword'])->middleware('jwt.verify');
 
 //========== DOCUMENT BELANJA PEGAWAI
 Route::get('doc_belanja_pegawai/get', [DocBelanjaPegawaiApiController::class, 'get'])->middleware('jwt.verify');
